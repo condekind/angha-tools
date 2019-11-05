@@ -1,30 +1,32 @@
-
 package main
 
 import (
-  "io"
-  "io/ioutil"
-  "log"
-  "net/http"
-  "encoding/json"
+	// "encoding/json"
+	// "io"
+	// "io/ioutil"
+	"fmt"
+	"github.com/rs/cors"
+	"log"
+	"net/http"
 )
 
 type Benchmark struct {
-  Bench string `json:"bench"` // Uppercased first letter
-  Suite string `json:"age"`   // Uppercased first letter
+	Bench string `json:"bench"` // Uppercased first letter
+	Suite string `json:"age"`   // Uppercased first letter
 }
 
 func main() {
 
-  h1 := func(w http.ResponseWriter, r *http.Request) {
-    body, _ := ioutil.ReadAll()
-    // exec("java -jar similar-code-search.jar bruno-index output/stats.txt output/similar.json");
-    // json.Unmarshal(body, &p)
-    io.WriteString(w, "Hello from a HandleFunc #1!\n")
-  }
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte("{\"hello\": \"world\"}"))
+	})
 
+	// cors.Default() setup the middleware with default options being
+	// all origins accepted with simple methods (GET, POST). See
+	// documentation below for more options.
+	handler := cors.Default().Handler(mux)
+	http.ListenAndServe(":8080", handler)
 
-  http.HandleFunc("/", h1)
-
-  log.Fatal(http.ListenAndServe(":8080", nil))
 }
