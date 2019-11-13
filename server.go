@@ -1,14 +1,8 @@
 package main
 
-import (
-	// "encoding/json"
-	// "io"
-	// "io/ioutil"
-	"fmt"
-	"github.com/rs/cors"
-	"log"
-	"net/http"
-)
+import "net/http"
+
+//"github.com/rs/cors"
 
 type Benchmark struct {
 	Bench string `json:"bench"` // Uppercased first letter
