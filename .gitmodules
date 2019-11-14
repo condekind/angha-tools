@@ -4,3 +4,6 @@
 [submodule "similar-code-search"]
 	path = similar-code-search
 	url = https://gitlab.com/jeronimonunes/similar-code-search.git
+[submodule "cxp"]
+	path = cxp
+	url = git@github.com:condekind/cxp.git
