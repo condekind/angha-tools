@@ -1,9 +1,0 @@
-[submodule "page-angha"]
-	path = page-angha
-	url = https://github.com/condekind/page-angha
-[submodule "similar-code-search"]
-	path = similar-code-search
-	url = https://gitlab.com/jeronimonunes/similar-code-search.git
-[submodule "cxp"]
-	path = cxp
-	url = https://github.com/condekind/cxp
