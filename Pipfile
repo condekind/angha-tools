@@ -1,0 +1,25 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+yapf = "*"
+
+[packages]
+cython = "*"
+numpy = "*"
+scipy = "*"
+pandas = "*"
+scikit-learn = "*"
+unidecode = "*"
+matplotlib = "*"
+ipywidgets = "*"
+plotly = "*"
+colorspacious = "*"
+jupyter = "*"
+notebook = "*"
+jupyterthemes = "*"
+
+[requires]
+python_version = "3.8"

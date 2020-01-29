@@ -1,0 +1,5 @@
+{
+    "python.pythonPath": "/home/condekind/.local/share/virtualenvs/html-NW9Setf-/bin/python",
+    "python.dataScience.jupyterServerURI": "local",
+    "python.formatting.provider": "yapf"
+}
