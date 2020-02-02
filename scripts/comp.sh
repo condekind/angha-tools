@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# this is left as an example 
 function compile() {
   #  for CSmith, set EXTRA_FLAGS=" -I../runtime -Wno-everything "
   EXTRA_FLAGS=""

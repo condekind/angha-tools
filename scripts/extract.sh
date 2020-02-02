@@ -1,36 +1,62 @@
 #!/bin/bash
 
+source func.sh
+
+#---------------------------------- Variables ----------------------------------
+
+# Parallel *execution* (not compilation)
+[[ -n $JOBS ]]        || JOBS=8
+
+# Set the lib SUFFIX according to OS
+[[ $(uname -s) == "Linux" ]] && SUFFIX="so" || SUFFIX="dylib"
+
+[[ -n $BASEDIR ]]     || BASEDIR="$(pwd)"
+[[ -n $SUITESDIR ]]   || SUITESDIR="$BASEDIR/suites/"
+
+# Output from passes ran in comp.sh
+[[ -n $OUTFILE ]]     || OUTFILE="$(pwd)/output/stats.txt"
+
+# Error from passes ran in comp.sh
+[[ -n $ERRFILE ]]     || ERRFILE="$(pwd)/output/error.txt"
+
+# Custom user passes file
+[[ -n $PASSFILE ]]    || PASSFILE="$(pwd)/info/passes.txt"
+
+# Custom user passes array
+[[ -n $USERPASSES ]]  || readarray -t USERPASSES < $PASSFILE
+
+# LLVM_PATH  => The place where I have all the LLVM tools
+[[ -n $LLVM_PATH ]]   || LLVM_PATH="/home/condekind/LLVM/10/build/bin"
+[[ -d $LLVM_PATH ]]   || echo "invalid LLVM_PATH: $LLVM_PATH"
+
 #-------------------------------------------------------------------------------
 
-# load vars
-COMPILE_FLAGS=" -I. "
-EXTRA_FLAGS=""
-llvm_path=/home/condekind/LLVM/10/build/bin
+echo "--------------------------------------"
+echo "JOBS        is set to $JOBS"
+echo "SUFFIX      is set to $SUFFIX"
+echo "BASEDIR     is set to $BASEDIR"
+echo "SUITESDIR   is set to $SUITESDIR"
+echo "LLVM_PATH   is set to $LLVM_PATH"
+echo "USERPASSES  is set to ${USERPASSES[@]}"
+echo "--------------------------------------"
 
-pass_file="info/passes.txt"
-readarray -t custom_passes < "$pass_file"
+#-------------------------------- Main Loop ------------------------------------
 
-command -v "$llvm_path"/clang &>/dev/null || exit 2
-command -v "$llvm_path"/opt &>/dev/null   || exit 2
+[[ -n $SUITES ]]      || SUITES=($( find ${SUITESDIR} -mindepth 1 -maxdepth 1 -type d ))
+echo "suites: $SUITES"
+for suite in "${SUITES[@]}"; do
+  cd $suite
+  BENCHS=($( find $(pwd) -name '*.c' -printf '%h\n' | sort -u ))
+  echo "benchs: $BENCHS"
+  for bench in "${BENCHS[@]}"; do
+    cd $bench && echo "Starting $bench"
+    setvars || continue
+    cleanup
+    compile || continue
+    bcstats || continue
+    delvars
+  done
+done
+cd $BASEDIR
 
 #-------------------------------------------------------------------------------
-
-# compile user program
-"$llvm_path"/clang    \
-  $COMPILE_FLAGS      \
-  $EXTRA_FLAGS        \
-  -x c                \
-  -Xclang             \
-  -disable-O0-optnone \
-  -emit-llvm          \
-  -S                  \
-  -o /dev/stdout -    |
-"$llvm_path"/opt      \
-  -mem2reg            \
-  -O0                 \
-  -instcount          \
-  ${custom_passes[@]} \
-  -stats              \
-  -S                  \
-  -disable-output -
-
