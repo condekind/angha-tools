@@ -59,4 +59,8 @@ for suite in "${SUITES[@]}"; do
 done
 cd $BASEDIR
 
+<<<<<<< Updated upstream
 #-------------------------------------------------------------------------------
+=======
+
+>>>>>>> Stashed changes
