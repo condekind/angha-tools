@@ -1,7 +1,0 @@
-{
-    "python.pythonPath": "/home/condekind/.local/share/virtualenvs/html-NW9Setf-/bin/python",
-    "python.dataScience.jupyterServerURI": "local",
-    "python.formatting.provider": "yapf",
-    "python.formatting.yapfArgs": ["--style", "{based_on_style: facebook}"],
-    "telemetry.enableTelemetry": false
-}
