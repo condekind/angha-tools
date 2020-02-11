@@ -1,0 +1,32 @@
+{
+    "include": [
+      "./",
+      "src"
+    ],
+    
+    "exclude": [
+      "**/node_modules",
+      "**/__pycache__",
+      "src/experimental",
+      "src/web/node_modules",
+      "src/typestubs"
+    ],
+  
+    "python.venvPath": "/home/condekind/.local/share/virtualenvs",
+    "typingsPath": "src/typestubs",
+  
+    "reportTypeshedErrors": true,
+    "reportMissingImports": true,
+    "reportMissingTypeStubs": true,
+
+    "reportOptionalSubscript": true,
+    "reportOptionalMemberAccess": true,
+    "reportOptionalCall": true,
+    "reportUntypedFunctionDecorator": true,
+
+    "pyright": "strict",
+  
+    "pythonVersion": "3.8",
+    "pythonPlatform": "Linux"
+    
+  }

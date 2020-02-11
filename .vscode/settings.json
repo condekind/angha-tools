@@ -1,0 +1,5 @@
+{
+    "telemetry.enableCrashReporter": false,
+    "telemetry.enableTelemetry": false,
+    "python.pythonPath": "/home/condekind/.local/share/virtualenvs/angha-tools-W-2KwiHY/bin/python"
+}
