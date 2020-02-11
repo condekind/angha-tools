@@ -1,5 +1,7 @@
 {
     "telemetry.enableCrashReporter": false,
     "telemetry.enableTelemetry": false,
-    "python.pythonPath": "/home/condekind/.local/share/virtualenvs/angha-tools-W-2KwiHY/bin/python"
+    "python.pythonPath": "/home/condekind/.local/share/virtualenvs/angha-tools-W-2KwiHY/bin/python",
+    "python.formatting.provider": "yapf",
+    "python.formatting.yapfArgs": ["--style", "{based_on_style: chromium"]
 }

@@ -1,3 +1,21 @@
+#==============================================================================#
+
+import re, subprocess
+from typing import List, Tuple
+
+def llvm_stat_clean(stat_line: str) -> Tuple[str, str, int]:
+    result = [_ for _ in stat_line.strip().split(maxsplit=3)]
+    return (result[1], result[3], int(result[0])) if len(result) == 4 else ('', '', -1)
+
+def parse_stats(proc_result: str) -> List[Tuple[str, str, int]]:
+    return [clean_line
+            for line   in proc_result.split('\n')
+            if  re.search('^ *\d+\s+\S+\s+-\s+.*$', line)
+            and (clean_line := llvm_stat_clean(line)) != ('', '', -1)]
+
+# from enum import Enum
+# class Color(Enum):
+#   #
 
 BenchmarkFeatures = [
   'edgecounter_number_of_edges',

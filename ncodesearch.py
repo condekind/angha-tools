@@ -13,6 +13,8 @@ from modules.benchinfo import *
 
 get_ipython().run_line_magic('matplotlib', 'inline')
 
+# In[ ]:
+print(BenchmarkFeatures)
 
 # In[ ]:
 
